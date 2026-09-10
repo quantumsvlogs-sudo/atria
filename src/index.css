@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Playfair+Display:wght@300;400;600&display=swap');
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #07060c;
+  color: #cbd5e1;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(22px, 22px); }
+}
+
+.blob-a {
+  animation: drift 18s ease-in-out infinite alternate;
+}
+.blob-b {
+  animation: drift 26s ease-in-out infinite alternate-reverse;
+}
+
+.chart-card {
+  background-color: #120e1c;
+  border: 1px solid #2a2150;
+  border-radius: 8px;
+  padding: 16px;
+}
