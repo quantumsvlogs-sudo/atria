@@ -5,7 +5,7 @@ import { createServer as createViteServer } from "vite";
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT) || 3000;
 
   // Data persistence directory inside the container
   const DATA_DIR = path.join(process.cwd(), "data");
