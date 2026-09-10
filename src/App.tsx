@@ -10,6 +10,13 @@ import { Slide4 } from './slides/Slide4';
 import { Slide5 } from './slides/Slide5';
 import { Slide6 } from './slides/Slide6';
 import { Slide7 } from './slides/Slide7';
+import { Slide8Dataset } from './slides/Slide8Dataset';
+import { Slide9QPackA } from './slides/Slide9QPackA';
+import { Slide9QPackB } from './slides/Slide9QPackB';
+import { Slide10Method } from './slides/Slide10Method';
+import { Slide11Why6 } from './slides/Slide11Why6';
+import { Slide12Claim } from './slides/Slide12Claim';
+import { Slide13External } from './slides/Slide13External';
 import { GlassPane } from './components/GlassPane';
 import { PasteDock } from './components/PasteDock';
 
@@ -22,7 +29,14 @@ const ALL_SLIDES = [
   { id: 's4', comp: Slide4, title: 'ORGANS DISAGREE' },
   { id: 's5', comp: Slide5, title: 'LIFESPAN' },
   { id: 's6', comp: Slide6, title: 'DISTINCTIONS' },
-  { id: 's7', comp: Slide7, title: 'CLOSE' }
+  { id: 's7', comp: Slide7, title: 'CLOSE' },
+  { id: 's8', comp: Slide8Dataset, title: 'DATASET' },
+  { id: 's9a', comp: Slide9QPackA, title: 'Q-PACK' },
+  { id: 's9b', comp: Slide9QPackB, title: 'Q-PACK' },
+  { id: 's10', comp: Slide10Method, title: 'METHOD' },
+  { id: 's11', comp: Slide11Why6, title: 'WHY 6' },
+  { id: 's12', comp: Slide12Claim, title: 'CLAIM' },
+  { id: 's13', comp: Slide13External, title: 'EXTERNAL' }
 ];
 
 export default function App() {
@@ -33,6 +47,8 @@ export default function App() {
   // Compute active slides sequence based on lens
   const activeSlides = ALL_SLIDES.filter(s => {
     if (s.id === 's2b') return lens === 'A';
+    if (s.id === 's9a') return lens === 'A';
+    if (s.id === 's9b') return lens === 'B';
     return true;
   });
 
@@ -41,11 +57,20 @@ export default function App() {
   const handleLensChange = (newLens: 'A' | 'B') => {
     if (newLens === lens) return;
     const currentId = currentSlide.id;
-    const nextSlides = ALL_SLIDES.filter(s => newLens === 'A' || s.id !== 's2b');
+    const nextSlides = ALL_SLIDES.filter(s => {
+      if (s.id === 's2b') return newLens === 'A';
+      if (s.id === 's9a') return newLens === 'A';
+      if (s.id === 's9b') return newLens === 'B';
+      return true;
+    });
     
     let nextIdx = nextSlides.findIndex(s => s.id === currentId);
     if (nextIdx === -1 && currentId === 's2b') {
       nextIdx = nextSlides.findIndex(s => s.id === 's2'); // Fallback to hero if heatmap is hidden
+    } else if (nextIdx === -1 && currentId === 's9a') {
+      nextIdx = nextSlides.findIndex(s => s.id === 's9b'); // Keep on Q-Pack conceptually
+    } else if (nextIdx === -1 && currentId === 's9b') {
+      nextIdx = nextSlides.findIndex(s => s.id === 's9a');
     }
     setSlideIdx(Math.max(0, nextIdx));
     setLens(newLens);

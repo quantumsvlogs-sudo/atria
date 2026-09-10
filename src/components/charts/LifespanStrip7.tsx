@@ -1,19 +1,12 @@
 import React from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer, ZAxis } from 'recharts';
+import { DEATH_WEEKS_45 } from '../../data';
 
 export function LifespanStrip7() {
-  const points = [];
-  const min = 29.14;
-  const max = 71.86;
-  const median = 49;
-  
-  for (let i = 0; i < 45; i++) {
-    let val = 0;
-    if (i < 5) val = min + Math.random() * 5;
-    else if (i > 40) val = max - Math.random() * 5;
-    else val = median + (Math.random() - 0.5) * 15;
-    points.push({ x: val, y: Math.random() });
-  }
+  const points = DEATH_WEEKS_45.map(w => ({
+    x: w,
+    y: Math.random() // for jitter
+  }));
 
   return (
     <div className="w-full h-full flex flex-col justify-center">
@@ -35,7 +28,7 @@ export function LifespanStrip7() {
       </div>
       
       <div className="grid grid-cols-4 gap-4 mt-12">
-        {[{l: 'MIN', v: '29.14'}, {l: 'MEDIAN', v: '≈49'}, {l: 'MAX', v: '71.86'}, {l: 'N', v: '45'}].map(s => (
+        {[{l: 'MIN', v: '28.71'}, {l: 'MEDIAN', v: '48.86'}, {l: 'MAX', v: '71.86'}, {l: 'N', v: '45'}].map(s => (
           <div key={s.l} className="bg-[#ffffff05] border border-white/10 rounded-xl p-4 text-center">
             <div className="text-[10px] font-bold text-slate-500 mb-1">{s.l}</div>
             <div className="text-xl font-mono text-white">{s.v}</div>
